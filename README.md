@@ -6,7 +6,7 @@ Requires SWI-Prolog.
 To run a sample capital_of ontology, run in SWI-Prolog: 
   > [diagnose,repair,util,reform,revise,utilRevise,capOf]. revise.
   
-Replace capOf with another ontology file, to repair another ontology. Ontology file is a collection of `fact` definitions. See ontology.pl or capOf.pl for an example.
+Replace capOf with another ontology file, to repair another ontology. Ontology file is a collection of `fact` definitions. See `ontology.pl` or `capOf.pl` for an example.
 
 General structure of the code:
  - `revise.pl`: Revises the ontology to a consistent state. Finds minimal repairs and repairs the ontology.
