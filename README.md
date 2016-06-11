@@ -3,7 +3,7 @@ Automatic ontology repair using reformation algorithm
 
 Requires SWI-Prolog.
 
-To run a sample capital_of ontology, run: 
+To run a sample capital_of ontology, run in SWI-Prolog: 
   > [diagnose,repair,util,reform,revise,utilRevise,capOf]. revise.
   
 Replace capOf with another ontology file, to repair another ontology. Ontology file is a collection of `fact` definitions. See ontology.pl or capOf.pl for an example.
