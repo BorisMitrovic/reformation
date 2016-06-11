@@ -22,3 +22,9 @@ Replace capOf with another ontology file, to repair another ontology. Ontology f
 
 ### Keywords:
   Automated reasoning, knowledge representation, ontology evolution, unification, belief revision, abduction.
+
+### Ontologies included:
+ - `capOf.pl`: example from the paper
+ - `ontology.pl`: madcow inference
+ - `sweets.pl`: shows how multiple inconsistencies can be repaired with a single alteration to the language
+ - `animal.pl`: minimal repair cost is 2
