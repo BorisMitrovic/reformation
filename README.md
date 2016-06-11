@@ -1,5 +1,5 @@
-# reformation
-Automatic ontology repair using reformation algorithm
+# Reformation
+Automatic ontology repair using Reformation algorithm, originally written by Alan Bundy.
 
 Requires SWI-Prolog.
 
