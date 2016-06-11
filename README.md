@@ -1,7 +1,7 @@
 # Reformation
 Automatic ontology repair using Reformation algorithm, originally written by Alan Bundy.
 
-Requires `SWI-Prolog` (http://www.swi-prolog.org/).
+Requires `SWI-Prolog` (http://www.swi-prolog.org/).  See also a reformation algorithm for Multi-sorted logic: https://github.com/BorisMitrovic/sorted-reformation
 
 To run a sample capital_of ontology, run in SWI-Prolog: 
   > [diagnose,repair,util,reform,revise,utilRevise,capOf]. revise.
