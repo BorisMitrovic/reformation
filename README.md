@@ -28,3 +28,7 @@ Replace capOf with another ontology file, to repair another ontology. Ontology f
  - `ontology.pl`: madcow inference
  - `sweets.pl`: shows how multiple inconsistencies can be repaired with a single alteration to the language
  - `animal.pl`: minimal repair cost is 2
+
+### Tips:
+ - Use `switch.` to switch from verbose mode to non-verbose.
+ - Use `heuristic(best)` or `heuristic(iter)` to switch between heuristics. `iter` is default - searching everything. `best` goes with the first best match for each additional repair required.
