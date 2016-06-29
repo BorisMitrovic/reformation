@@ -48,177 +48,101 @@ minimal(R):- nl,nl, minimal6(R), nl,nl.
 
 % minimal repair Examples
 minimal1(Rs):-
-    print('* Illustrate failed unification of f(x:t,x:t, x:t):s,f(a:t,b:t,b:t):s'), nl,
-    reform(f(x:t,x:t, x:t):s,f(a:t,b:t,b:t):s,_,fail,FS,_),
+    print('* Illustrate failed unification of f(x,x, x),f(a,b,b)'), nl,
+    reform(f(x,x, x),f(a,b,b),_,fail,FS,_),
     print('Result is '), print(FS), nl,
    nl,
-    print('* Unblock unification of f(x:t,x:t, x:t):s,f(a:t,b:t,b:t):s'), nl, !,
-    reform(f(x:t,x:t, x:t):s,f(a:t,b:t,b:t):s,Sigma,success,_,Rs),
+    print('* Unblock unification of f(x,x, x),f(a,b,b)'), nl, !,
+    reform(f(x,x, x),f(a,b,b),Sigma,success,_,Rs),
     print('   With substitution: '), print(Sigma).
 
 minimal2(Rs):-
-    print('* Illustrate failed unification of f(x:t,x:t, x:t,x:t,x:t,x:t):s,f(a:t,b:t,b:t,c:t,a:t,a:t):s'), nl,
-    reform(f(x:t,x:t, x:t,x:t,x:t,x:t):s,f(a:t,b:t,b:t,c:t,a:t,a:t):s,_,fail,FS,_),
+    print('* Illustrate failed unification of f(x,x, x,x,x,x),f(a,b,b,c,a,a)'), nl,
+    reform(f(x,x, x,x,x,x),f(a,b,b,c,a,a),_,fail,FS,_),
     print('Result is '), print(FS), nl,
    nl,
-    print('* Unblock unification of f(x:t,x:t, x:t,x:t,x:t,x:t):s,f(a:t,b:t,b:t,c:t,a:t,a:t):s'), nl, !,
-    reform(f(x:t,x:t, x:t,x:t,x:t,x:t):s,f(a:t,b:t,b:t,c:t,a:t,a:t):s,Sigma,success,_,Rs),
+    print('* Unblock unification of f(x,x, x,x,x,x),f(a,b,b,c,a,a)'), nl, !,
+    reform(f(x,x, x,x,x,x),f(a,b,b,c,a,a),Sigma,success,_,Rs),
     print('   With substitution: '), print(Sigma).
 
 minimal3(Rs):-
-    print('* Illustrate failed unification of f(x:t,y:s,x:t,x:t,d:s):s,f(a:t,c:s,b:t,b:t,y:s):s'), nl,
-    reform(f(x:t,y:s,x:t,x:t,d:s):s,f(a:t,c:s,b:t,b:t,y:s):s,_,fail,FS,_),
+    print('* Illustrate failed unification of f(x,y,x,x,d),f(a,c,b,b,y)'), nl,
+    reform(f(x,y,x,x,d),f(a,c,b,b,y),_,fail,FS,_),
     print('Result is '), print(FS), nl,
    nl,
-    print('* Unblock unification of f(x:t,y:s,x:t,x:t,d:s):s,f(a:t,c:s,b:t,b:t,y:s):s'), nl, !,
-    reform(f(x:t,y:s,x:t,x:t,d:s):s,f(a:t,c:s,b:t,b:t,y:s):s,Sigma,success,_,Rs),
+    print('* Unblock unification of f(x,y,x,x,d),f(a,c,b,b,y)'), nl, !,
+    reform(f(x,y,x,x,d),f(a,c,b,b,y),Sigma,success,_,Rs),
     print('   With substitution: '), print(Sigma).
 
 % minimal blocking
 minimal4(Rs):-
-    print('* Illustrate successful unification of f(x:t,a:t,x:t):s,f(y:t,y:t,z:t):s'), nl,
-    reform(f(x:t,a:t,x:t):s,f(y:t,y:t,z:t):s,Sigma,success,FS,_),
+    print('* Illustrate successful unification of f(x,a,x),f(y,y,z)'), nl,
+    reform(f(x,a,x),f(y,y,z),Sigma,success,FS,_),
     print('Result is '), print(FS), print(' with substitution '), print(Sigma), nl,
    nl,
-    print('* Block unification of f(x:t,a:t,x:t):s=f(y:t,y:t,z:t):s'), nl, !,
-    reform(f(x:t,a:t,x:t):s,f(y:t,y:t,z:t):s,_,fail,_,Rs),
+    print('* Block unification of f(x,a,x)=f(y,y,z)'), nl, !,
+    reform(f(x,a,x),f(y,y,z),_,fail,_,Rs),
    nl.
 
 minimal5(Rs):- 
-    print('* Illustrate successful unification of f(x:s,x:s,a:s):s=f(y:s,a:s,y:s):s'), nl,
-    reform(f(x:s,x:s,a:s):s,f(y:s,a:s,y:s):s,Sigma,success,FS,_),
+    print('* Illustrate successful unification of f(x,x,a)=f(y,a,y)'), nl,
+    reform(f(x,x,a),f(y,a,y),Sigma,success,FS,_),
     print('Result is '), print(FS), print(' with substitution '), print(Sigma), nl,
     nl,
-    print('* Block unification of f(x:s,x:s,a:s):s=f(y:s,a:s,y:s):s'), nl, !,
-    reform(f(x:s,x:s,a:s):s,f(y:s,a:s,y:s):s,_,fail,_,Rs).   
+    print('* Block unification of f(x,x,a)=f(y,a,y)'), nl, !,
+    reform(f(x,x,a),f(y,a,y),_,fail,_,Rs).   
 
 minimal6(Rs):- 
-    print('* Illustrate successful unification of f(x:s,x:s,x:s):s=f(a:s,a:s,a:s):s'), nl,
-    reform(f(x:s,x:s,x:s):s,f(a:s,a:s,a:s):s,Sigma,success,FS,_),
+    print('* Illustrate successful unification of f(x,x,x)=f(a,a,a)'), nl,
+    reform(f(x,x,x),f(a,a,a),Sigma,success,FS,_),
     print('Result is '), print(FS), print(' with substitution '), print(Sigma), nl,
     nl,
-    print('* Block unification of f(x:s,x:s,x:s):s=f(a:s,a:s,a:s):s'), nl, !,
-    reform(f(x:s,x:s,x:s):s,f(a:s,a:s,a:s):s,_,fail,_,Rs).   
+    print('* Block unification of f(x,x,x)=f(a,a,a)'), nl, !,
+    reform(f(x,x,x),f(a,a,a),_,fail,_,Rs).   
 
-
-% Conceptual Examples
-football(Rs) :- 
-    print('* Illustrate successful unification of handle(buffon:footballer):pred=handle(x:footballer):pred'), nl,
-    reform(handle(buffon:footballer):pred,handle(x:footballer):pred,Sigma,success,FS,_),
-    print('Result is '), print(FS), print(' with substitution '), print(Sigma), nl,
-    nl,
-    print('* Block unification of handle(buffon:footballer):pred=handle(x:footballer):pred'), nl,
-    reform(handle(buffon:footballer):pred,handle(x:footballer):pred,_,fail,_,Rs).
-
-bees(Rs) :- 
-    print('* Illustrate successful unification of flies(bee_queen:bee):pred=flies(x:bee):pred'), nl,
-    reform(flies(bee_queen:bee):pred,flies(x:bee):pred,Sigma,success,FS,_),
-    print('Result is '), print(FS), print(' with substitution '), print(Sigma), nl,
-    nl,
-    print('* Block unification of flies(bee_queen:bee):pred=flies(x:bee):pred'), nl,
-    reform(flies(bee_queen:bee):pred,flies(x:bee):pred,_,fail,_,Rs).
-
-dumbo(Rs) :- 
-    print('* Illustrate successful unification of flies(dumbo:elephant):s=flies(x:elephant):s'), nl,
-    reform(flies(dumbo:elephant):s, flies(x:elephant):s,Sigma,success,FS,_),
-    print('Result is '), print(FS), print(' with substitution '), print(Sigma), nl,
-    nl,
-    print('* Block unification of flies(dumbo:elephant):s=flies(x:elephant):s'), nl,
-    reform(flies(dumbo:elephant):s, flies(x:elephant):s,_,fail,_,Rs).
-
-adoptive(Rs) :- 
-    print('* Illustrate successful unification of given_birth(x:mother):s=given_birth(marry:mother):s'),
-    nl,
-    reform(given_birth(x:mother):s, given_birth(marry:mother):s,Sigma,success,FS,_),
-    print('Result is '), print(FS), print(' with substitution '), print(Sigma), nl,
-    nl,
-    print('* Block unification of given_birth(x:mother):s=given_birth(marry:mother):s'), nl,
-    reform(given_birth(x:mother):s, given_birth(marry:mother):s,_,fail,_,Rs).
-
-deceased(Rs) :- 
-    print('* Illustrate successful unification of have_heartbeat(x:person):s=have_heartbeat(einstein:person):s'),
-    nl,
-    reform(have_heartbeat(x:person):s, have_heartbeat(einstein:person):s,Sigma,success,FS,_),
-    print('Result is '), print(FS), print(' with substitution '), print(Sigma), nl,
-    nl,
-    print('* Block unification of have_heartbeat(x:person):s=have_heartbeat(einstein:person):s'), nl,
-    reform(have_heartbeat(x:person):s, have_heartbeat(einstein:person):s,_,fail,_,Rs).
-
-possession(Rs) :- 
-    print('* Illustrate successful unification of materialist(john:dualist):philosophy=materialist(x:dualist):philosophy'),
-    nl,
-    reform(materialist(john:dualist):philosophy, materialist(x:dualist):philosophy,Sigma,success,FS,_),
-    print('Result is '), print(FS), print(' with substitution '), print(Sigma), nl,
-    nl,
-    print('* Block unification of materialist(john:dualist):philosophy=materialist(x:dualist):philosophy'), nl,
-    reform(materialist(john:dualist):philosophy, materialist(x:dualist):philosophy,_,fail,_,Rs).
-
-parent2(Rs):-
-    print('* Illustrate failed unification of love(john:father,x:child):pred=love(y:mother,z:child):pred'), nl,
-    reform(love(john:father,x:child):pred,love(y:mother,z:child):pred,_,fail,FS,_),
-    print('Result is '), print(FS), nl,
-   nl,
-    print('* Unblock unification of love(john:father,x:child):pred=love(y:mother,z:child):pred'), nl, !,
-    reform(love(john:father,x:child):pred,love(y:mother,z:child):pred,_,success,_,Rs).
-
-milk(Rs):-
-    print('* Illustrate failed unification of origin(x:milk,y:animal):s=origin(coconut:milk,coconut_palm:fruit):s'), nl,
-    reform(origin(x:milk, y:animal):s, origin(coconut:milk, coconut_tree:fruit):s,_,fail,FS,_),
-    print('Result is '), print(FS), nl,
-   nl,
-    print('* Unblock unification of origin(x:milk,y:animal):s=origin(coconut:milk,coconut_tree:fruit):s'), nl, !,
-    reform(origin(x:milk, y:animal):s, origin(coconut:milk, coconut_palm:fruit):s,_,success,_,Rs).
-
-complicated(Rs):-
-    print('* Illustrate failed unification of source(x:milk, y:animal, france:country):s, origin(coconut:pure_milk, coconut_tree:vegetable, bordeaux:town):t'), nl,
-    reform(source(x:milk, y:animal, france:country):s, origin(coconut:pure_milk, coconut_tree:vegetable, bordeaux:town):t,_,fail,FS,_),
-    print('Result is '), print(FS), nl,
-   nl,
-    print('* Unblock unification of source(x:milk, y:animal, france:country):s, origin(coconut:pure_milk, coconut_tree:vegetable, bordeaux:town):t'), nl, !,
-    reform(source(x:milk, y:animal, france:country):s, origin(coconut:pure_milk, coconut_tree:vegetable, bordeaux:town):t,_,success,_,Rs).
 
 % <add> convex example, by using more unifications
 
 
 go1(Rs):- 
-    print('* Illustrate successful unification of x:s=f(c:t):s'), nl,
-    reform(x:s,f(c:t):s,Sigma,success,FS,_),
+    print('* Illustrate successful unification of x=f(c)'), nl,
+    reform(x,f(c),Sigma,success,FS,_),
     print('Result is '), print(FS), print(' with substitution '), print(Sigma), nl,
     nl,
-    print('* Block unification of x:s=f(c:t):s'), nl, !,
-    reform(x:s,f(c:t):s,_,fail,_,Rs).   
+    print('* Block unification of x=f(c)'), nl, !,
+    reform(x,f(c),_,fail,_,Rs).   
 
 go2(Rs):-
-    print('* Illustrate successful unification of f(x:c):s,f(c:c):s'), nl,
-    reform(f(x:c):s,f(c:c):s,Sigma,success,FS,_),
+    print('* Illustrate successful unification of f(x:c),f(c:c)'), nl,
+    reform(f(x:c),f(c:c),Sigma,success,FS,_),
     print('Result is '), print(FS), print(' with substitution '), print(Sigma), nl,
     nl,
-    print('* Block unification of f(x:c):s=f(c:c):s'), nl, !,
-    reform(f(x:c):s,f(c:c):s,_,fail,_,Rs).
+    print('* Block unification of f(x:c)=f(c:c)'), nl, !,
+    reform(f(x:c),f(c:c),_,fail,_,Rs).
 
 go3(Rs):-
-    print('* Illustrate failed unification of x:s=f(x:s):t'), nl,
-    reform(x:s,f(x:s):t,_,fail,FS,_),
+    print('* Illustrate failed unification of x=f(x)'), nl,
+    reform(x,f(x),_,fail,FS,_),
     print('Result is '), print(FS), nl,
    nl,
-    print('* Unblock unification of x:s=f(x:s):t'), nl, !,
-    reform(x:s,f(x:s):t,_,success,_,Rs).
+    print('* Unblock unification of x=f(x)'), nl, !,
+    reform(x,f(x),_,success,_,Rs).
 
 go4(Rs):-
-    print('* Illustrate failed unification of f(x:v):t=f(a:a,c:v):s'), nl,
-    reform(f(x:v):t,f(a:a,c:v):s,_,fail,FS,_),
+    print('* Illustrate failed unification of f(x)=f(a,c)'), nl,
+    reform(f(x),f(a,c),_,fail,FS,_),
     print('Result is '), print(FS), nl,
     nl,
-    print('* Unblock unification of f(x:v):t=f(a:a,c:v):s'), nl, !,
-    reform(f(x:v):t,f(a:a,c:v):s,_,success,_,Rs).
+    print('* Unblock unification of f(x)=f(a,c)'), nl, !,
+    reform(f(x),f(a,c),_,success,_,Rs).
 
 go5(Rs):-
-    print('* Illustrate failed unification of f(x:c):s=g(a:c):s'), nl,
-    reform(f(x:c):s,g(a:c):s,_,fail,FS,_),
+    print('* Illustrate failed unification of f(x:c)=g(a:c)'), nl,
+    reform(f(x:c),g(a:c),_,fail,FS,_),
     print('Result is '), print(FS), nl,
     nl,
-    print('* Unblock unification of f(x:c):s=g(a:c):s'), nl, !,
-    reform(f(x:c):s,g(a:c):s,_,success,_,Rs).
+    print('* Unblock unification of f(x:c)=g(a:c)'), nl, !,
+    reform(f(x:c),g(a:c),_,success,_,Rs).
 
 
 
@@ -235,74 +159,74 @@ go6(Rs):-
 %% Examples from BBN 1750
 
 mechanic(Rs) :- 
-    print('* Illustrate successful unification of mechanic(f:t):p=mechanic(f:t):p'), nl,
-    reform(mechanic(f:t):p,mechanic(f:t):p,Sigma,success,FS,_),
+    print('* Illustrate successful unification of mechanic(f)=mechanic(f)'), nl,
+    reform(mechanic(f),mechanic(f),Sigma,success,FS,_),
     print('Result is '), print(FS), print(' with substitution '), print(Sigma), nl,
     nl,
-    print('* Block unification of mechanic(f:t):p=mechanic(f:t):p'), nl,
-    reform(mechanic(f:t):p,mechanic(f:t):p,_,fail,_,Rs).
+    print('* Block unification of mechanic(f)=mechanic(f)'), nl,
+    reform(mechanic(f),mechanic(f),_,fail,_,Rs).
 
 mechanicName(Rs) :- 
-    print('* Illustrate successful unification of mechanic(felipe:person):profession=mechanic(felipe:person):profession'), nl,
-    reform(mechanic(felipe:person):profession,mechanic(felipe:person):profession,Sigma,success,FS,_),
+    print('* Illustrate successful unification of mechanic(felipe)=mechanic(felipe)'), nl,
+    reform(mechanic(felipe),mechanic(felipe),Sigma,success,FS,_),
     print('Result is '), print(FS), print(' with substitution '), print(Sigma), nl,
     nl,
-    print('* Block unification of mechanic(felipe:person):profession=mechanic(felipe:person):profession'), nl,
-    reform(mechanic(felipe:person):profession,mechanic(felipe:person):profession,_,fail,_,Rs).
+    print('* Block unification of mechanic(felipe)=mechanic(felipe)'), nl,
+    reform(mechanic(felipe),mechanic(felipe),_,fail,_,Rs).
 
 
 driver(Rs) :- 
-    print('* Illustrate successful unification of driver(f:t):p=driver(x:t):p'), nl,
-    reform(driver(f:t):p,driver(x:t):p,Sigma,success,FS,_),
+    print('* Illustrate successful unification of driver(f)=driver(x)'), nl,
+    reform(driver(f),driver(x),Sigma,success,FS,_),
     print('Result is '), print(FS), print(' with substitution '), print(Sigma), nl,
     nl,
-    print('* Block unification of driver(f:t):p=driver(x:t):p'), nl, !,
-    reform(driver(f:t):p,driver(x:t):p,_,fail,_,Rs).
+    print('* Block unification of driver(f)=driver(x)'), nl, !,
+    reform(driver(f),driver(x),_,fail,_,Rs).
 
 
 eq(Rs) :- 
-    print('* Illustrate successful unification of eq(x:v,x:v):p=eq(y:v,c:v):p'), nl,
-    reform(eq(x:v,x:v):p,eq(y:v,c:v):p,Sigma,success,FS,_),
+    print('* Illustrate successful unification of eq(x,x)=eq(y,c)'), nl,
+    reform(eq(x,x),eq(y,c),Sigma,success,FS,_),
     print('Result is '), print(FS), print(' with substitution '), print(Sigma), nl,
     nl,
-    print('* Block unification of eq(x:v,x:v):p=eq(y:v,c:v):p'), nl, !,
-    reform(eq(x:v,x:v):p,eq(y:v,c:v):p,_,fail,_,Rs).
+    print('* Block unification of eq(x,x)=eq(y,c)'), nl, !,
+    reform(eq(x,x),eq(y,c),_,fail,_,Rs).
 
 
 %% Examples from BBN 1759
 
 parent(Rs) :- 
-    print('* Illustrate failed unification of parent(a:s,c:s):p=parnet(x:s,y:s):p'), nl,
-    reform(parent(a:s,c:s):p,parnet(x:s,y:s):p,_,fail,FS,_),
+    print('* Illustrate failed unification of parent(a,c)=parnet(x,y)'), nl,
+    reform(parent(a,c),parnet(x,y),_,fail,FS,_),
     print('Result is '), print(FS), nl,
     nl,
-    print('* Unblock unification of parent(a:s,c:s):p=parnet(x:s,y:s):p'), nl, !,
-    reform(parent(a:s,c:s):p,parnet(x:s,y:s):p,_,success,_,Rs).
+    print('* Unblock unification of parent(a,c)=parnet(x,y)'), nl, !,
+    reform(parent(a,c),parnet(x,y),_,success,_,Rs).
 
 pay(Rs) :-
-    print('* Illustrate failed unification of pay(a:item,price(c:money):p):o=pay(x:item,price(y:card):p,b:type):p'), nl,
-    reform(pay(a:item,price(c:money):p):o,pay(x:item,price(y:card):p,b:type):p,_,fail,FS,_),
+    print('* Illustrate failed unification of pay(a:item,price(c:money)):o=pay(x:item,price(y:card),b)'), nl,
+    reform(pay(a:item,price(c:money)):o,pay(x:item,price(y:card),b),_,fail,FS,_),
     print('Result is '), print(FS), nl,
     nl,
-    print('* Unblock unification of pay(a:item,price(c:money):p):o=pay(x:item,price(y:card):p,b:type):p'), nl, !,
-    reform(pay(a:item,price(c:money):p):o,pay(x:item,price(y:card):p,b:type):p,_,success,_,Rs).
+    print('* Unblock unification of pay(a:item,price(c:money)):o=pay(x:item,price(y:card),b)'), nl, !,
+    reform(pay(a:item,price(c:money)):o,pay(x:item,price(y:card),b),_,success,_,Rs).
 
 love(Rs) :-
-    print('* Illustrate failed unification of love(x:p,x:p):s=love(y:p,love_of(y:p):p):s'), nl,
-    reform(love(x:p,x:p):s,love(y:p,love_of(y:p):p):s,_,fail,FS,_),
+    print('* Illustrate failed unification of love(x,x)=love(y,love_of(y))'), nl,
+    reform(love(x,x),love(y,love_of(y)),_,fail,FS,_),
     print('Result is '), print(FS), nl,
     nl,
-    print('* Unblock unification of love(x:p,x:p):s=love(y:p,love_of(y:p):p):s'), nl, !,
-    reform(love(x:p,x:p):s,love(y:p,love_of(y:p):p):s,_,success,_,Rs).
+    print('* Unblock unification of love(x,x)=love(y,love_of(y))'), nl, !,
+    reform(love(x,x),love(y,love_of(y)),_,success,_,Rs).
 
 
 love2(Rs) :-
-    print('* Illustrate failed unification of love(x:p,x:p):s=love2(y:p,love_of(y:p):p):s'), nl,
-    reform(love(x:p,x:p):s,love2(y:p,love_of(y:p):p):s,_,fail,FS,_),
+    print('* Illustrate failed unification of love(x,x)=love2(y,love_of(y))'), nl,
+    reform(love(x,x),love2(y,love_of(y)),_,fail,FS,_),
     print('Result is '), print(FS), nl,
     nl,
-    print('* Unblock unification of love(x:p,x:p):s=love2(y:p,love_of(y:p):p):s'), nl, !,
-    reform(love(x:p,x:p):s,love2(y:p,love_of(y:p):p):s,_,success,_,Rs).
+    print('* Unblock unification of love(x,x)=love2(y,love_of(y))'), nl, !,
+    reform(love(x,x),love2(y,love_of(y)),_,success,_,Rs).
 
 
 cauchy(Rs) :-
@@ -316,8 +240,8 @@ cauchy(Rs) :-
 
 
 wms(Rs) :-
-    print('* Block unification of f(c:s):s=a:s:s and f(c:s):s=z:s:s'), nl, !,
-    reform(f(c:s):s=a:s, f(c:s):s=z:s,_,fail,_,Rs).
+    print('* Block unification of f(c)=a and f(c)=z'), nl, !,
+    reform(f(c)=a, f(c)=z,_,fail,_,Rs).
 
 
 
