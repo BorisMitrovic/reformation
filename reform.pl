@@ -9,7 +9,7 @@
 %%  substitutions E1 is always vble(X) for some X.
 
 
-%% reform(E1,E2,Sigma,W,FS,Rs,Ss): unify E1 and E2 with substitution Sigma,
+%% reform(E1,E2,Sigma,W,FS,Rs): unify E1 and E2 with substitution Sigma,
 %% result FS (fail/success) and what was wanted. Return repairs Rs.
 
 reform(E1,E2,Sigma,W,FS,Rs) :-              % accept singleton even if not in list format

@@ -268,3 +268,30 @@ vnl :- verbose(on),!,nl; true.
 
 switch(left,right).
 switch(right,left).
+
+
+%% Procedures not in Sictus, but in SWI
+%% maplist(Pred,InList,Outlist): apply Pred to each element in Inlist to form Outlist
+
+maplist(_, [], []).
+maplist(Pred, [H1|T1], [H2|T2]) :-
+    Pred =.. PL,
+    append(PL, [H1, H2], NewPred),
+    Call =.. NewPred,
+    call(Call),
+    maplist(Pred, T1, T2).
+
+
+%% nth1(N,List,Element): Element is Nth element of List
+
+nth1(1,[X|_],X) :- !.
+nth1(Idx,[_|List],X) :-
+    Idx > 1,
+    Idx1 is Idx-1,
+    nth1(Idx1,List,X).
+
+
+%% is_list(List): List is a list
+
+is_list([_|_]).
+is_list([]).
