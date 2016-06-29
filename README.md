@@ -4,7 +4,7 @@ Automatic ontology repair using Reformation algorithm, originally written by Ala
 Requires `SWI-Prolog` (http://www.swi-prolog.org/), or `Sicstus Prolog` (https://sicstus.sics.se/).  See also a reformation algorithm for Multi-sorted logic: https://github.com/BorisMitrovic/sorted-reformation
 
 ### Run:
-To run a sample `capital_of` ontology, run in SWI-Prolog: 
+To run a sample `capital_of` ontology, run in SWI-Prolog (or Sicstus Prolog): 
   > [diagnose,repair,util,reform,revise,utilRevise,capOf]. revise.
   
 Replace capOf with another ontology file, to repair another ontology. Ontology file is a collection of `fact` definitions. See `ontology.pl` or `capOf.pl` for an example.
