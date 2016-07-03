@@ -13,7 +13,14 @@ repairs([],U,U).
 
 % Step case: apply each repair in turn.
 repairs([H|T],UIn,UOut) :-
-    repair(H,UIn,UMid), repairs(T,UMid,UOut).          % repair does one repair to the head, then recurse on the tail. 
+    repair(H,UIn,UMid), repairRepairs(H,T,TOut), repairs(TOut,UMid,UOut).          % repair does one repair to the head, then recurse on the tail. 
+
+repairRepairs(_,[],[]).
+repairRepairs(R, [H|T], [HOut|TOut]) :-
+    repairRepair(R,H,HOut), repairRepairs(R,T,TOut).
+
+repairRepair(merge(F,G),remove_n(F,N,L), remove_n(G,N,L)) :- !.   % TODO: Write out all possible interactions between repairs
+repairRepair(_,U,U).
 
 %%  repair(R,UIn,UOut): apply one repair.
 
