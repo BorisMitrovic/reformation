@@ -1,19 +1,19 @@
 # Reformation
-Automatic ontology repair using Reformation algorithm, originally written by Alan Bundy. Written in support of a currently unpublished (WIP) paper `An Algorithm to Repair Faulty Logical Theories by Reforming their Language` by Bundy, Mitrovic (2016). Available on request.
+Automatic theory repair using Reformation algorithm, originally written by Alan Bundy. Written in support of a currently unpublished (WIP) paper `An Algorithm to Repair Faulty Logical Theories by Reforming their Language` by Bundy, Mitrovic (2016). Available on request.
 
 Requires `SWI-Prolog` (http://www.swi-prolog.org/), or `Sicstus Prolog` (https://sicstus.sics.se/).  See also a reformation algorithm for Multi-sorted logic: https://github.com/BorisMitrovic/sorted-reformation
 
 ### Run:
-To run a sample `capital_of` ontology, run in SWI-Prolog (or Sicstus Prolog): 
+To run a sample `capital_of` theory, run in SWI-Prolog (or Sicstus Prolog): 
   > [diagnose,repair,util,reform,revise,utilRevise,capOf]. revise.
   
-Replace capOf with another ontology file, to repair another ontology. Ontology file is a collection of `fact` definitions. See `ontology.pl` or `capOf.pl` for an example.
+Replace capOf with another theory file, to repair another theory. Theory file is a collection of `fact` definitions. See `ontology.pl` or `capOf.pl` for an example.
 
 ### General structure of the code:
- - `revise.pl`: Revises the ontology to a consistent state. Finds minimal repairs and repairs the ontology.
+ - `revise.pl`: Revises the theory to a consistent state. Finds minimal repairs and repairs the theory.
  - `reform.pl`: Performs a reformation algorithm. Either blocks a successful unification, if failure wanted, or unblocks a failed unification if success wanted.
  - `diagnose.pl`: Finds all possible repairs, which could unblock the unification.
- - `repair.pl`: Applies the repairs to either unification, or ontology repairs to the ontology.
+ - `repair.pl`: Applies the repairs to either unification, or theory repairs to the theory.
  - `utilRevise.pl`: General utility functions for revise algorithm.
  - `util.pl`: General utility functions.
 
