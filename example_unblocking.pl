@@ -1,7 +1,7 @@
 % The example 9.3 on pp.34-35 of the paper.
 
 % USAGE: In SWI-Prolog, run:
-% notrace,[diagnose,repair,util,reform,revise,utilRevise,info,story,rewrite,filter,example_unblocking].
+% notrace,[diagnose,repair,util,reform,revise,utilRevise,filter,extralib,example_unblocking].
 % and run:
 % example_9_3.
 

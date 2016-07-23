@@ -295,3 +295,45 @@ nth1(Idx,[_|List],X) :-
 
 is_list([_|_]).
 is_list([]).
+
+
+cost_of_repair([],0):-!.
+cost_of_repair([X|L],C):-
+  (
+    X = substitute(_,_),
+    C1 = 0
+    ;
+    X \= substitute(_,_),
+    C1 = 1
+  ),
+  cost_of_repair(L,C2),
+  C is C1 + C2.
+
+pruning_strategy(Rprev,Rs):-
+  append(Rprev,Rs,R),
+  member(merge(_,_,left),R),
+  member(merge(_,_,right),R).
+pruning_strategy(Rprev,Rs):-
+  member(merge(X,Y,_),Rprev),
+  member(merge(Y,X,_),Rs).
+pruning_strategy(Rprev,Rs):-
+  member(permute(X,_,_),Rprev),
+  member(permute(X,_,_),Rs).
+pruning_strategy(Rprev,Rs):-
+  append(Rprev,Rs,R),
+  member(merge(X,Y,_),R),
+  member(permute(X,_,_),R),
+  member(permute(Y,_,_),R).
+
+/*pruning_strategy(_,Rs):-
+  member(addargv(n1,_,_,_),Rs).
+pruning_strategy(_,Rs):-
+  member(addfunc(succ,_,_),Rs).
+pruning_strategy(_,Rs):-
+  member(permute(target_theory,_,left),Rs).*/
+
+
+filter(Rs,Ftr):-
+  member(X,Rs),
+  member(X,Ftr).
+
