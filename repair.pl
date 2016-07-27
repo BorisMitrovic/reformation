@@ -6,6 +6,20 @@
 %%%%%%%%%%%%%%%%%%%%%%%%      UNIFICATION  REPAIR       %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
+% Substitute.
+substitutes([],T,T):-!.
+substitutes([X|_],_,_):-
+    \+X = substitute(_,_),
+    !,
+    fail.
+substitutes([X|L],T,U):-
+    apply_substitute(X,T,T1),
+    substitutes(L,T1,U).
+apply_substitute(substitute(X1,X2),T,U):-
+    apply_merge(merge(X1,X2),T,U).
+
+
+
 repairall(_,[],[]):-!.
 repairall(Rs,[X|L],[X1|L1]):-
     repairs(Rs,X,X1),

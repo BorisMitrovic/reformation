@@ -71,7 +71,13 @@ reform2([[F1|Args1]=[F2|Args2]|Old],SigmaIn,SigmaOut,W,FS,Rs) :-
 % Failure unwanted -> repair
 reform2(T,SigmaIn,SigmaOut,success,fail,Rs):-
     filter_default(F),
-    ccf_unblock_limited(T,unlimited,F,[],Rs,_),!.
+    ccf_unblock_limited(T,unlimited,F,[],Rs,_).
+
+reform2_limited(T,SigmaIn,SigmaOut,success,fail,Rs,Nr):-
+    filter_default(F),
+    ccf_unblock_limited(T,Nr,F,[],Rss,_),
+    findall(X,(member(X,Rss),\+X=substitute(_,_)),Rs),
+    findall(X,(member(X,Rss),X=substitute(_,_)),SigmaOut).
 
 % CCf-unblocking step.
 ccf_unblock_limited([],_,_,_,[],[]):-!.
