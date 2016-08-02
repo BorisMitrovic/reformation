@@ -274,6 +274,10 @@ switch(right,left).
 
 /*
 
+%% In Sicstus, some SWI functions, such as maplist, nth1 and is_list are defined by the library [lists].
+
+%% This file has loaded [lists] automatically.
+
 %% Procedures not in Sictus, but in SWI
 %% maplist(Pred,InList,Outlist): apply Pred to each element in Inlist to form Outlist
 
