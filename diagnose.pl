@@ -119,7 +119,8 @@ diagnose_arguments(success,fail,[X1|L1],[X2|L2],Rs):-
 permute(X,Args,[permute(X,P,Dir)],Dir):-
     length(Args,Len),
     numlist(1,Len,L),
-    permutation(P,L),
+    permutation(L,P),
+    %permutation(P,L),
     P \= L.
 
 list_depth([],0):-!.

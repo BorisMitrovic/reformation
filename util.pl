@@ -2,6 +2,9 @@
 %% Alan Bundy, 31.1.12 %%
 %% Revised By Boris Mitrovic, 16.05.13; 11.06.16 %%
 
+:-use_module(library(between)).
+:-use_module(library(lists)).
+:-use_module(library(terms)).
 
 %% pprint(E): convert to input form and print
 
@@ -269,6 +272,7 @@ vnl :- verbose(on),!,nl; true.
 switch(left,right).
 switch(right,left).
 
+/*
 
 %% Procedures not in Sictus, but in SWI
 %% maplist(Pred,InList,Outlist): apply Pred to each element in Inlist to form Outlist
@@ -296,6 +300,7 @@ nth1(Idx,[_|List],X) :-
 is_list([_|_]).
 is_list([]).
 
+*/
 
 cost_of_repair([],0):-!.
 cost_of_repair([X|L],C):-
