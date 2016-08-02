@@ -3,9 +3,9 @@
 % USAGE: In SWI-Prolog, run:
 % notrace,[diagnose,repair,util,reform,revise,utilRevise,extralib,upgrade,example_upgrade].
 % and run:
-% example_upgrade.
+% example_upgrade(Res).
 
-example_upgrade:-
+example_upgrade(Res):-
 
   % The upper limit of the cost of repair.
   Nr = 3,
@@ -90,6 +90,8 @@ example_upgrade:-
   nl,printByLine(['The original theory is:'|T]),
   nl,printByLine(['The goal is:'|G]),
   nl,printByLine(['Repairs are:'|Rs]),
-  nl,printByLine(['The repaired theory is:'|Tp]),nl.
+  nl,printByLine(['The repaired theory is:'|Tp]),nl,
+
+  Res = Tp.
 
 
