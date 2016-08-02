@@ -172,7 +172,9 @@ get_new_argc(C):-
     retractall(new_argc(_)),
     N1 is N + 1,
     assert(new_argc(N1)),
-    atom_concat('newargc',N1,C),
+    number_chars(N1,Chr),
+    atom_chars(Atm,Chr),
+    atom_concat('newargc',Atm,C),
     !.
 
 /*
