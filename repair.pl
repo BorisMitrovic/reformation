@@ -148,7 +148,9 @@ add_vble(L,N,R):-
     retract(new_vble(X)),
     X1 is X + 1,
     assert(new_vble(X1)),
-    atom_concat('new',X1,V),
+    number_chars(X1,Chr),
+    atom_chars(Atm,Chr),
+    atom_concat('new',Atm,V),
     append(LL,[vble(V)|LR],R).
 
 

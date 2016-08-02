@@ -153,7 +153,9 @@ add_func(X,Arg,Dir,[addfunc(X,L,F1,Dir)]):-
     retractall(new_func(_)),
     N1 is N + 1,
     assert(new_func(N1)),
-    atom_concat('newfunc',N1,F1),
+    number_chars(N1,Chr),
+    atom_chars(Atm,Chr),
+    atom_concat('newfunc',Atm,F1),
     !.
 
 del_func(X,Arg,Dir,Rs):-
