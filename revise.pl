@@ -87,8 +87,7 @@ revise2(Ont,Ont,[],[],Rs,Rs,_) :- !,
 % repair inconsistencies
 revise2(OldOnt,NewOnt,ProofsIn,ProofsOut,RsIn,RsOut,N) :-
 	costRepairs(RsIn,M),
-	M=<N,
-							% if cost within budget
+	M=<N,								% if cost within budget
 	detect(ProofsIn,Repairs),			% find all repairs, which would unblock one of the inconsistency proofs
 	heuristic(H),
 	chooseRepair(Repair,Repairs,H,OldOnt),	% choose repairs based on current heuristic
@@ -171,7 +170,7 @@ detect(Proofs,Repairs) :-
 detect1([],_,_) :- !, fail.
 
 % detects false equality contradiction repairs
-detect1(([+([==|[X,Y]])],Par), Rs) :-
+detect1(([+([==|[X,Y]])],Par), Rs) :- 
 	X\=Y, reform3([X],[Y],[],_,success,fail,Rs);
 	!, detect1(Par,Rs).
 
@@ -241,7 +240,7 @@ resolve( (C1,P1),I1,(C2,P2),I2,SubstIn,SubstOut,(NewC,((C1,P1),I1,(C2,P2),I2)) )
 % is the clause a contradiction clause? Hardcode equality meaning
 contradiction(Clause) :-
 	Clause=[], !;
-	Clause= [+([==|[X,Y]])], X \= Y,reform3([X],[Y],[],_,success,fail,_);   	   % + a=b
+	Clause= [+([==|[X,Y]])], reform3([X],[Y],[],_,success,fail,_), !;   	   % + a=b
 	Clause= [-([==|[X,Y]])], reform3([X],[Y],[],_,success,success,[]).		   % - x=x
 
 % is inferred clause trivially true or already known?
