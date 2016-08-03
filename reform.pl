@@ -57,7 +57,8 @@ reform2([],SigmaIn,SigmaIn,success,success,[]) :-   % When no more problems, suc
 % Case CC_s: success on two compound expressions. F1=F2 and length Arg1 and
 % length Arg2 the same.
 
-reform2([[F1|Args1]=[F2|Args2]|Old],SigmaIn,SigmaOut,W,FS,Rs) :- 
+reform2([[F1|Args1]=[F2|Args2]|Old],SigmaIn,SigmaOut,W,FS,Rs) :-
+    FS=success,
     F1==F2, length(Args1,L), length(Args2,L),       % If functors and arities agree
     pairwise(Args1,Args2,New),                      % Pair up corresponding subterms
     append(New,Old,Rest),                           % Add them to the Old problems
@@ -67,23 +68,40 @@ reform2([[F1|Args1]=[F2|Args2]|Old],SigmaIn,SigmaOut,W,FS,Rs) :-
     \+(Rs=[])).                                     % Only if diagnosing finds a repair
 
 
-% Case CC_f: failure on two compound expressions. F1/=F2, or length Arg1 and
-% length Arg2 different.
-
-reform2([[F1|Args1]=[F2|Args2]|_],_,_,_,fail,_) :-              
-    (F1\==F2 ; length(Args1,L1), length(Args2,L2), L1\==L2),   % if functors or arities disagree
-    retractall(refsuccess), fail.                              % mark failure for recursion
-
-reform2([[F1|Args1]=[F2|Args2]|_],_,_,fail,fail,_) :-          % If failure wanted then fail
-    (F1\==F2 ; length(Args1,L1), length(Args2,L2), L1\==L2).   % if functors or arities disagree
-
 % Failure unwanted -> repair
-reform2([[F1|Args1]=[F2|Args2]|Rest],SigmaIn,SigmaOut,success,fail,Rs) :- % If failure unwanted
-    (F1\==F2 ; length(Args1,L1), length(Args2,L2), L1\==L2), !,           % but functors or arities disagree
-    diagnose(success,fail,[F1|Args1]=[F2|Args2],Rs1),                     % Diagonose a repair
-    repairs(Rs1,[F1|Args1]=[F2|Args2],U),                                 % Apply it
-    reform2([U|Rest],SigmaIn,SigmaOut,success,_,Rs2),                     % Continue reformation with repaired problem
-    append(Rs1,Rs2,Rs).                                                   % Conjoin first repair with any more found. 
+reform2(T,SigmaIn,SigmaOut,success,fail,Rs):-
+    filter_default(F),
+    ccf_unblock_limited(T,unlimited,F,[],Rs,_).
+
+reform2_limited(T,SigmaIn,SigmaOut,success,fail,Rs,Nr):-
+    filter_default(F),
+    ccf_unblock_limited(T,Nr,F,[],Rss,_),
+    findall(X,(member(X,Rss),\+X=substitute(_,_)),Rs),
+    findall(X,(member(X,Rss),X=substitute(_,_)),SigmaOut).
+
+% CCf-unblocking step.
+ccf_unblock_limited([],_,_,_,[],[]):-!.
+ccf_unblock_limited([T1=T1|Rest],Nr,Ftr,Rprev,Rs,[T1=T1|RepRest]):-
+    ccf_unblock_limited(Rest,Nr,Ftr,Rprev,Rs,RepRest).
+ccf_unblock_limited([T1=T2|Rest],Nr,Ftr,Rprev,Rs,RepRest):-
+    \+var(Nr),
+    T1 \= T2,
+    diagnose(success,fail,T1,T2,Rs1),
+    (
+        Nr = unlimited,
+        Nr1 = unlimited
+        ;
+        number(Nr),
+        cost_of_repair(Rs1,C1),
+        Nr1 is Nr - C1,
+        Nr1 >= 0
+    ),
+    \+filter(Rs1,Ftr),
+    \+pruning_strategy(Rprev,Rs1),
+    repairall(Rs1,[T1=T2|Rest],U1),
+    append(Rprev,Rs1,Rnow),
+    ccf_unblock_limited(U1,Nr1,Ftr,Rnow,Rs2,RepRest),
+    append(Rs1,Rs2,Rs).
 
 % Case VC: a variable vs a compound expression. 
 
