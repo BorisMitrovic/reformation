@@ -1,10 +1,15 @@
 % An implementation of upgrade.
 
 upgrade(G,TIn,Tr,Rs,TOut,Nr,D):-
+  upgrade1(G,TIn,Tr,Rs,TOut,Nr,D,s).
+
+/*
   % Negate goals.
   % We don't use 'not' here, because it is a build-in clause.
   findall(Xt,(member(X,G),negate_goal(X,Xt)),Gt),
   upgrade1(Gt,TIn,Tr,Rs,TOut,Nr,D,s).
+*/
+
 
 upgrade1(G,TIn,Tr,Rs,TOut,Nr,D,Res):-
   resolve_unblocking(G,TIn,Tr,RsMid,TMid,Nr,D,ResMid),
