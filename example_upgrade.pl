@@ -1,4 +1,4 @@
-% The example 9.3 on pp.34-35 of the paper.
+% The StepMum example and the SelfLove example.
 
 % USAGE: In SWI-Prolog, run:
 % notrace,[diagnose,repair,util,reform,revise,utilRevise,extralib,upgrade,example_upgrade].
@@ -18,8 +18,11 @@ example_upgrade(Res):-
   % +p means p is true. -p means p is false.
   % p /\ q ==> r can be written as [-p,-q,+r].
   % Variables should be written as vble(..).
+  % The goal should be negated. i.e. A goal g is written as -g.
 
-  % The example 9.3 on pp.34-35 of the paper.
+/*
+
+  % The StepMum example.
 
   T = [
     [+stepmum(camilla,william)],
@@ -27,8 +30,23 @@ example_upgrade(Res):-
   ],
 
   G = [
-    +parent2(camilla,william,step)
+    -parent2(camilla,william,step)
   ],
+
+*/
+
+
+  % SelfLove example.
+  T = [
+    [+loves(vble(y),love_of(vble(y)))]
+     %[+loves(vble(x))]
+  ],
+
+  G = [
+    -loves(vble(x),vble(x))
+    %-loves(love_of(vble(x)))
+  ],
+
 
   /*
   % A test example.
@@ -50,7 +68,7 @@ example_upgrade(Res):-
 
   G = [
     % The goal is s.
-    +s
+    -s
   ],
   */
 
@@ -74,7 +92,7 @@ example_upgrade(Res):-
   % The original expression is (3 + 2) + 1.
   % The goal is 6.
   G = [
-    +six
+    -six
   ],
   */
 

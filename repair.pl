@@ -298,7 +298,17 @@ apply_addfunc(addfunc(X,Ar,F),[Y|L],[Y|L1]):-
     ),
     apply_addfunc2(addfunc(X,Ar,F),L,L1),
     !.
-apply_addfunc(addfunc(_,_,_),vble(Y),vble(Y)):-!.
+
+apply_addfunc(addfunc(A,_,F),vble(Y),Res):-
+  (
+    A \= vble(Y),
+    Res = vble(Y)
+    ;
+    A = vble(Y),
+    Res = [F,vble(Y)]
+  ),
+  !.
+
 apply_addfunc2(_,[],[]):-!.
 apply_addfunc2(addfunc(X,Ar,F),[P|L],[U|V]):-
     apply_addfunc(addfunc(X,Ar,F),P,U),
@@ -334,6 +344,52 @@ apply_delfunc2(_,[],[]):-!.
 apply_delfunc2(delfunc(X,Ar,P),[R|S],[U|V]):-
     apply_delfunc(delfunc(X,Ar,P),R,U),
     apply_delfunc2(delfunc(X,Ar,P),S,V).
+
+% Delete a variable --- The VCf rule.
+
+repair(delvble(V,P,left),T1=T2,U1=T2):-
+    apply_delvble(delvble(V,P),T1,U1),
+    !.
+repair(delvble(V,P,right),T1=T2,T1=U2):-
+    apply_delvble(delvble(V,P),T2,U2),
+    !.
+
+% Apply a 'delvble' operation to a list.
+
+apply_delvble(_,T,T):-
+    atom(T),
+    !.
+apply_delvble(_,T,T):-
+    T = vble(_),
+    !.
+
+apply_delvble(delvble(V,P),P,Res):-
+    remove_term(V,P,Res),
+    !.
+apply_delvble(_,[],[]):-!.
+apply_delvble(delvble(V,P),[X|L],[X1|L1]):-
+    apply_delvble(delvble(V,P),X,X1),
+    apply_delvble(delvble(V,P),L,L1),
+    !.
+% Remove a term from a list recursively.
+remove_term(T,X,X):-
+    T \= X,
+    (
+        atom(X)
+        ;
+        X = vble(_)
+    ),
+    !.
+remove_term(_,[],[]):-!.
+remove_term(T,[T|L],L1):-
+    remove_term(T,L,L1),
+    !.
+remove_term(T,[X|L],[X1|L1]):-
+    T \= X,
+    remove_term(T,X,X1),
+    remove_term(T,L,L1),
+    !.
+
 
 % Make arities different
 repair(diff_arities(FL,FR),[FL|ArgsL]=[FR|ArgsR],[FL|ArgsL1]=[FR|ArgsR]) :-

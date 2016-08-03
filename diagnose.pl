@@ -36,20 +36,30 @@ diagnose(success,fail,vble(X1),X2,[substitute(vble(X1),X2)]):-
 diagnose(success,fail,X1,vble(X2),[substitute(vble(X2),X1)]):-
     \+contains_term(vble(X2),X1),
     !.
-/*
+
 % Occurs-in.
 % not complete.
 diagnose(success,fail,vble(X1),X2,Rs):-
     contains_term(vble(X1),X2),
     vble(X1) \= X2,
-    add_func(vble(X1),left,Rs),
-    !.
+    !,
+    (
+      add_func(vble(X1),[],left,Rs)
+      ;
+      unblock_vcf_occurs(vble(X1),X2,right,Rs)
+      % Rs = [delvble(vble(X1),X2,right)]
+    ).
 diagnose(success,fail,X1,vble(X2),Rs):-
     contains_term(vble(X2),X1),
     vble(X2) \= X1,
-    add_func(vble(X2),right,Rs),
-    !.
-*/   
+    !,
+    (
+      add_func(vble(X2),[],right,Rs)
+      ;
+      unblock_vcf_occurs(vble(X2),X1,left,Rs)
+      % Rs = [delvble(vble(X2),X1,left)]
+    ).
+  
 
 diagnose(success,fail,[X1|L1],[X2|L2],Rs):-
     list_depth([X1|L1],Dep1),
@@ -177,6 +187,28 @@ get_new_argc(C):-
     atom_chars(Atm,Chr),
     atom_concat('newargc',Atm,C),
     !.
+
+
+unblock_vcf_occurs(vble(X),T,D,Rs):-
+    find_position(vble(X),T,F,Ar,P1),
+    P is P1 - 1,
+    Rs = [delarg(F,Ar,P,D)],
+    !.
+
+find_position(X,[F|L],F,Ar,P):-
+    nth0(P,[F|L],X),
+    length(L,Ar),
+    !.
+find_position(X,[Y|L],F,Ar,P):-
+    \+nth0(_,[Y|L],X),
+    find_position2(X,L,F,Ar,P),
+    !.
+find_position2(X,[Y|_],F,Ar,P):-
+    find_position(X,Y,F,Ar,P),
+    !.
+find_position2(X,[Y|L],F,Ar,P):-
+    \+find_position(X,Y,_,_,_),
+    find_position2(X,L,F,Ar,P).
 
 /*
 % Stable version.
