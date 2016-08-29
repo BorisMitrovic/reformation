@@ -1,6 +1,9 @@
 %% Diagnose Unification Problems and Suggest Repairs %%
 %% Alan Bundy, 30.1.12 %%
 %% Revised By Boris Mitrovic, 16.05.13; 11.06.16 for ontology repair %%
+%% Revised By Chenghao Cai, 18.08.16, for the MSc project --- The Application of Reformation to Repair Faulty Analogical Blends %%
+
+
 
 %% diagnose(W,FS,Eq,Rs): if result from Eq unwanted W\=FS then suggest repairs
 %% Rs to signature
@@ -44,7 +47,9 @@ diagnose(success,fail,vble(X1),X2,Rs):-
     vble(X1) \= X2,
     !,
     (
-      add_func(vble(X1),[],left,Rs)
+      X2 = [F|_],
+      add_func(vble(X1),[],F,left,Rs)
+      % add_func(vble(X1),[],left,Rs)
       ;
       unblock_vcf_occurs(vble(X1),X2,right,Rs)
       % Rs = [delvble(vble(X1),X2,right)]
@@ -54,7 +59,8 @@ diagnose(success,fail,X1,vble(X2),Rs):-
     vble(X2) \= X1,
     !,
     (
-      add_func(vble(X2),[],right,Rs)
+      X1 = [F|_],
+      add_func(vble(X2),[],F,right,Rs)
       ;
       unblock_vcf_occurs(vble(X2),X1,left,Rs)
       % Rs = [delvble(vble(X2),X1,left)]
@@ -67,14 +73,14 @@ diagnose(success,fail,[X1|L1],[X2|L2],Rs):-
     (
         Dep1 < Dep2,
         (
-            add_func(X1,L1,left,Rs)
+            add_func(X1,L1,X2,left,Rs)
             ;
             del_func(X2,L2,right,Rs)
         )
         ;
         Dep1 > Dep2,
         (
-            add_func(X2,L2,right,Rs)
+            add_func(X2,L2,X1,right,Rs)
             ;
             del_func(X1,L1,left,Rs)
         )
@@ -155,6 +161,12 @@ list_depth([X|L],D):-
     ).
 
 
+
+add_func(X,Arg,F,Dir,[addfunc(X,L,F,Dir)]):-
+    length(Arg,L),
+    !.
+
+/*
 :- dynamic new_func/1.
 :- retractall(new_func(_)).
 :- assert(new_func(0)).
@@ -168,7 +180,7 @@ add_func(X,Arg,Dir,[addfunc(X,L,F1,Dir)]):-
     atom_chars(Atm,Chr),
     atom_concat('newfunc',Atm,F1),
     !.
-
+*/
 del_func(X,Arg,Dir,Rs):-
     length(Arg,L),
     L1 is L - 1,

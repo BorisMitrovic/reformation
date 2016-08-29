@@ -1,6 +1,9 @@
 %% Reformation Procedure %%
 %% Alan Bundy, 16.2.12 %%
 %% Revised By Boris Mitrovic, 16.05.13; 11.06.16 %%
+%% Revised By Chenghao Cai, 18.08.16, for the MSc project --- The Application of Reformation to Repair Faulty Analogical Blends %%
+
+
 
 %% Representation: variables are vble(X); compound terms are [Func|Args], where
 %% Args can be empty list if Func is constant.

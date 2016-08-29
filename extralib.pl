@@ -1,3 +1,7 @@
+% Some extra functions.
+% Chenghao Cai. 18th August, 2016.
+
+
 info(1,_):-!.
 info(1,Y):-
     nl,print(Y),nl.

@@ -1,10 +1,12 @@
 %% Utility Procedures %%
 %% Alan Bundy, 31.1.12 %%
 %% Revised By Boris Mitrovic, 16.05.13; 11.06.16 %%
+%% Revised By Chenghao Cai, 18.08.16, for the MSc project --- The Application of Reformation to Repair Faulty Analogical Blends %%
 
-:-use_module(library(between)).
-:-use_module(library(lists)).
-:-use_module(library(terms)).
+% For Sicstus Prolog.
+%:-use_module(library(between)).
+%:-use_module(library(lists)).
+%:-use_module(library(terms)).
 
 %% pprint(E): convert to input form and print
 
@@ -366,7 +368,7 @@ filter_rewrite(F):-
     addargv(_,_,_,right) ,
 
     % Prohibit deleting arguments.
-    delarg(_,_,_,left) ,
+    % delarg(_,_,_,left) ,
     delarg(_,_,_,right) ,
 
     % Prohibit adding new functors.
@@ -374,7 +376,7 @@ filter_rewrite(F):-
     addfunc(_,_,_,right) ,
 
     % Prohibit deleting functors.
-    delfunc(_,_,_,left) ,
+    % delfunc(_,_,_,left) ,
     delfunc(_,_,_,right) ,
     
     % Prohibit permuting arguments.
@@ -402,15 +404,15 @@ filter_align(F):-
     addargv(_,_,_,right) ,
 
     % Prohibit deleting arguments.
-    delarg(_,_,_,left) ,
+    % delarg(_,_,_,left) ,
     delarg(_,_,_,right) ,
 
     % Prohibit adding new functors.
-    addfunc(_,_,_,left) ,
+    % addfunc(_,_,_,left) ,
     addfunc(_,_,_,right) ,
 
     % Prohibit deleting functors.
-    delfunc(_,_,_,left) ,
+    % delfunc(_,_,_,left) ,
     delfunc(_,_,_,right) ,
     
     % Prohibit permuting arguments.

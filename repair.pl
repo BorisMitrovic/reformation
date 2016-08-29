@@ -1,6 +1,8 @@
 %% Apply repairs to Unification Problems %%
 %% Alan Bundy, 23.2.12 %%
 %% Revised By Boris Mitrovic, 16.05.13; 11.06.16 for ontology repair %%
+%% Revised By Chenghao Cai, 18.08.16, for the MSc project --- The Application of Reformation to Repair Faulty Analogical Blends %%
+
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%      UNIFICATION  REPAIR       %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
