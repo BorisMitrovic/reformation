@@ -1,4 +1,21 @@
-% Stepmother theory
+/*
+Run the following to test this ontology:
+[diagnose,repair,util,reform,revise,utilRevise,stepmother,upgrade,unblock].
 
-% Run the following to test this ontology:
-%   notrace,[diagnose,repair,util,reform,revise,utilRevise,stepmother]. reform(parent2(x,y,cstep),parent(camilla,bill),Sigma, success, FS, RS).
+
+fact([+stepmum(camilla,william)]).
+fact([-stepmum($x,$z),+parent($x,$z)]).
+fact([-parent2(camilla,william,step)]).
+
+
+fact([+parent2($x,$y,cstep)]).
+fact([-parent(camilla,bill)]).
+
+*/
+
+fact([+parent2($x,$y,cstep)]).
+fact([-parent(camilla,bill)]).
+
+
+fact1([parent2(x,y,cstep)]).
+fact1([parent(camilla,bill)]).

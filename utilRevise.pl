@@ -2,6 +2,12 @@
 %% Boris Mitrovic, 16.05.13; revised 11.06.16 %%
 
 % converting clauses using convert
+/*
+Input:
+	In is the set of axioms.
+Output:
+	Out is a whole aixom in clasual form.
+*/
 convertClause(In,Out) :-
 	maplist(convertTerm,In,Out).
 
@@ -11,6 +17,7 @@ convertTerm(+In,+Out) :-
 convertTerm(-In,-Out) :-
 	convert(In,Out).
 
+
 % all elements of a clause after a term
 afterClause(C,[C|AfterOnt],AfterOnt) :-!.
 afterClause(C,[_|Ont],AfterOnt) :-
@@ -18,7 +25,7 @@ afterClause(C,[_|Ont],AfterOnt) :-
 
 
 % Does the repair make sense for a given clause? Specifies necessary conditions.
-sensibleRep([insert_var(_,V)],Cl) :- !, occurs(V,Cl).
+% sensibleRep([insert_var(_,V)],Cl) :- !, occurs(V,Cl).
 % TODO: define sensibility for other repairs
 sensibleRep(_,_).
 
@@ -32,7 +39,7 @@ enum(N,List) :-
 	N1 is N-1,
 	enum(N1,Rest),
 	List = [N|Rest].
-	
+
 % remove all occurances of an element from a list
 remove(_,[],[]).
 remove(A, [A|B], C) :- !,
@@ -48,10 +55,10 @@ printAll([C|Cs]) :-
 % gives the resulting clause assuming the resolution was successful.
 resultingClause(C1,I1,C2,I2,NewC) :-
 	I11 is I1-1, I21 is I2-1,
-	append(B1,[_|E1],C1), length(B1,I11),
-	append(B2,[_|E2],C2), length(B2,I21),
-	append(B1,B2,B),
-	append(E1,E2,E),
+	append(B1,[_|E1],C1), length(B1,I11),  % B1 is the list of first I11 elements of C1
+	append(B2,[_|E2],C2), length(B2,I21),  % B2 is the list of first I21 elements of C2
+	append(B1,B2,B),  % the lengh of B is I11+I21 = I1 + I2 - 2
+	append(E1,E2,E),  % the lengh of E is LenghC1 + LenghC2 - I1 - I2
 	append(B,E,NewC), !.
 
 
@@ -70,7 +77,7 @@ unifiableShallow(vble(_),vble(_)).
 
 unifiableShallow([F1|Args1], [F2|Args2]) :- %  CC
     F1==F2,
-    length(Args1,L), length(Args2,L).  
+    length(Args1,L), length(Args2,L).
 
 unifiableShallow([F|Args],vble(_)) :- %  CV
 	unifiableShallow(vble(_),[F|Args]). %  VC
