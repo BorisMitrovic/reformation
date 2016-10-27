@@ -99,12 +99,12 @@ derivation(DerivedOnt, DerivedOnt, PairOntNew, PairOntNew, CurrentCost, CurrentC
  	1.Resolve a pair of propositions:I1th term of C1 and I2th term of C2 using reformation algorithm
   2.return new pair of propositions after substitution
 	3.delete subgoals which has been resolved from search tree.
-	4.RestAxiom is the rest original axiom which would be used for printout.
+
 
 *	Only if there are both - & + propositions in theory, upgrade algorithm can be applied.
 	There may be some sub goals left in the RestOnt Tree because of lacking + propositions.
-	It is ok, since the algorithm will failed, as it should be, at the step of repair_uncompleted.
-	So we do not add goals when it is a pair of - & -. In summary, we only add goals after it is paired.
+	It is ok, since the algorithm will failed at the step of repair_uncompleted, as it should be.
+	So we do not add goals when it is a pair of - & -. In summary, we only add goals in resolved clauses.
 	Unpaired goals will be paired in recursion later or left in RestOnt for repair_uncompleted step.
 */
 resolution(C1, I1, C2, I2, NewC, PairCin, NewPairT, GoalsIn, GoalsOut):-
